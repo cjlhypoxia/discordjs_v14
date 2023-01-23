@@ -5,6 +5,6 @@ module.exports = {
     .setDescription("Pong")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     execute(interaction) {
-        interaction.reply({content: "test", ephermal: true})
+        interaction.reply({content: `hi`, ephermal: true})
     },
 };
