@@ -8,7 +8,8 @@ function loadCommands(client) {
         const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter((file) => file.endsWith('.js'));
         for (const file of commandFiles) {
             const commandFile = require(`../Commands/${folder}/${file}`);
-            client.commands.set(commandFile.data.name, commandFile);
+            const properties = {folder, ...commandFile};
+            client.commands.set(commandFile.data.name, properties);
             commandsArray.push(commandFile.data.toJSON());
             table.addRow(file, "Loaded");
             continue;
