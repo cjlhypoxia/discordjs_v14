@@ -9,17 +9,20 @@ module.exports = {
             }
             command.execute(interaction, client);
         } else if (interaction.isButton()) {
-            const role = interaction.guild.roles.cache.get('894065423279063051');
-            return interaction.member.roles
-                .add(role)
-                .then((member) =>
-                    interaction.reply({
-                        content: `${role} 身分組已套用`,
-                        ephemeral: true,
-                    }),
-                );
-        } else {
-            return;
+            const {customId} = interaction;
+                if (customId == "verify") {
+                    const role = interaction.guild.roles.cache.get('894065423279063051');
+                    return interaction.member.roles
+                        .add(role)
+                        .then((member) =>
+                            interaction.reply({
+                                content: `${role} 身分組已套用`,
+                                ephemeral: true,
+                            }),
+                        );
+                }
+            } else {
+                return;
         }
     },
 };
