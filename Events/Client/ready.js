@@ -1,6 +1,8 @@
 const {Client} = require('discord.js');
 const mongoose = require('mongoose');
 const config = require("../../config.json");
+const Levels = require("discord.js-leveling");
+mongoose.set('strictQuery', false);
 module.exports = {
     name: "ready",
     once: true,
@@ -8,8 +10,12 @@ module.exports = {
         await mongoose.connect(config.mongodb || '', {
             keepAlive: true,
         });
-        if (mongoose.connect)
+        if (mongoose.connect) {
             console.log('MongoDB連接成功')
+        }
+        if (Levels.setURL(config.mongodb)) {
+            console.log('MongoDB設定成功')
+        }
         console.log(`${client.user.username} 已經上線`);
     },
 };
