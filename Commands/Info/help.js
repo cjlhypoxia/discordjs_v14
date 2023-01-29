@@ -52,6 +52,7 @@ module.exports = {
         const initialMessage = await interaction.reply({
             embeds: [embed],
             components: components(false),
+            ephemeral: true
         });
         const filter = (interaction) =>
             interaction.user.id === interaction.member.id;
@@ -77,7 +78,7 @@ module.exports = {
                     };
                 })
             );
-            interaction.update({embeds: [categoryEmber]});
+            interaction.update({embeds: [categoryEmber], ephemeral: true});
         });
         collector.on("end", () => {
             initialMessage.edit({components: components(true)});
