@@ -2,9 +2,9 @@ const {SlashCommandBuilder , CommandInteraction, PermissionFlagsBits} = require(
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("Pong")
+    .setDescription("查看機器人延遲")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-    execute(interaction) {
-        interaction.reply({content: `hi`, ephermal: true})
+    execute(interaction, client) {
+        interaction.reply({content: `延遲: ${client.ws.ping}ms`, ephermal: true})
     },
 };
