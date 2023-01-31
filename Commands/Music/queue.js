@@ -8,6 +8,7 @@ module.exports = {
         const {options, member, guild, channel} = interaction;
         const voiceChannel = member.voice.channel;
         const embed = new EmbedBuilder();
+        
         if (!voiceChannel) {
             embed.setColor("Red").setDescription("你必須在語音頻道內");
             return interaction.reply({ embeds: [embed], ephemeral: true});
@@ -23,7 +24,7 @@ module.exports = {
                 return interaction.reply({ embeds: [embed], ephemeral: true});
             }
             embed.setColor("Blue").setDescription(`${queue.songs.map(
-                (song, id) => `\n**${id + 1}**.**${song.name}** -\`${song.formattedDuration}\``
+              (song, id) => `\n**${id + 1}**.**${song.name}** -\`${song.formattedDuration}\``
             )}`);
             return interaction.reply({ embeds: [embed], ephemeral: true});
         } catch (err) {
