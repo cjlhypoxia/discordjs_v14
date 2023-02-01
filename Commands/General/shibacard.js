@@ -6,7 +6,7 @@ module.exports = {
     .setDescription("發動色色柴犬")
     .addStringOption(option =>
         option.setName("卡類")
-            .setDescription("選擇要發動的卡類")
+            .setDescription("選擇要發動的卡類　（不選擇則隨機發動）")
             .addChoices(
                 {name: "怪獸卡", value: "monster"},
                 {name: "魔法卡", value: "magic"},
@@ -46,7 +46,6 @@ module.exports = {
             }
             const aattachment = new AttachmentBuilder(`${randtypedoge.src}`);
             await interaction.reply({content: `${interaction.user} 發動了\n**${randtypedoge.title}** - ${randtypedoge.type}`, files: [aattachment]});
-            console.log(randtypedoge);
         }
     }
 }
