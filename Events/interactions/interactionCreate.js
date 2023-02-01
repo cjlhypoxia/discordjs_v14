@@ -11,7 +11,7 @@ module.exports = {
         } else if (interaction.isButton()) {
             const {customId} = interaction;
             
-            if (customId == "verify") {
+            if (customId == "認證") {
                 const role = interaction.guild.roles.cache.get('894065423279063051');
                 return interaction.member.roles
                     .add(role)
