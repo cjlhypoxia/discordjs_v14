@@ -18,6 +18,10 @@ module.exports = {
     async execute(interaction) {
         const {user} = interaction;
         const prompt = interaction.options.getString("問題") ?? "";
+        if(!interaction.member.roles.cache.has(process.env.chatrole)){
+            await interaction.deferReply({ephemeral: true});
+            return interaction.editReply({content: `你沒有使用該指令的權限！`, ephemeral: true});
+        }  else {
         await interaction.deferReply();
         let tempModel = training;
         tempModel += `User: ${prompt}\n`;
@@ -34,7 +38,8 @@ module.exports = {
         const cleanedRes = response?.replace(/[\r\n]/gm, "") || "";
         const embed = new EmbedBuilder();
         embed.setColor("Random").setDescription(`**${prompt}** - <@${user.id}>\n\n${cleanedRes}\n\nAPI使用量 - ${total_tokens}`).setTimestamp();
-        return interaction.editReply({embeds: [embed]});
+        return interaction.editReply({embeds: [embed], ephemeral: false});
+        }
     },
 };
 
