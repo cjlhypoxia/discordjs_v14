@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const client = require("../../index");
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,6 +13,12 @@ module.exports = {
         const {options, member, guild, channel} = interaction;
         const query = options.getString("query");
         const voiceChannel = member.voice.channel;
+        const button = new ActionRowBuilder().setComponents(
+            new ButtonBuilder().setCustomId('pause').setLabel('pause').setStyle(ButtonStyle.Danger).setEmoji('😵‍💫'),
+            new ButtonBuilder().setCustomId('resume').setLabel('resume').setStyle(ButtonStyle.Secondary).setEmoji('😒'),
+            new ButtonBuilder().setCustomId('shuffle').setLabel('shuffle').setStyle(ButtonStyle.Primary).setEmoji('👌'),
+            new ButtonBuilder().setCustomId('skip').setLabel('skip').setStyle(ButtonStyle.Success).setEmoji('💡'),
+        );
         const embed = new EmbedBuilder();
         if (!voiceChannel) {
             embed.setColor("Red").setDescription("你必須在語音頻道內");
@@ -24,7 +30,7 @@ module.exports = {
         }
         try {
             client.distube.play(voiceChannel, query, { textChannel: channel, member: member});
-            return interaction.reply({content: "🎵 收到要求"});
+            return interaction.reply({content: "🎵 收到要求", components: [button]});
         } catch (err) {
             console.log(err);
             embed.setColor("Blue").setDescription("⏭️發生了錯誤");

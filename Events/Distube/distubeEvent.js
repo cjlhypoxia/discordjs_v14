@@ -25,7 +25,7 @@ client.distube
             {
                 embeds: [new EmbedBuilder().setColor("Green")
                     .setDescription(`🎶 | Added \`${playlist.name}\` playlist (${playlist.songs.length
-                        } songs) to queue\n${status(queue)}`)]
+                        } songs) to queue\n${status(queue)} ${playlist.user}`)]
             }
         )
     )
