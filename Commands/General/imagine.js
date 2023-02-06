@@ -1,6 +1,7 @@
 const {SlashCommandBuilder, AttachmentBuilder} = require('discord.js');
+const {Configuration, OpenAIApi} = require('openai');
+require('dotenv').config();
 const translate = require('@iamtraction/google-translate');
-const { Configuration } = require('openai');
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("imagine")
@@ -11,6 +12,21 @@ module.exports = {
         .setRequired(true)
     ),
     async execute(interaction) {
+        /**await interaction.deferReply();
+        const text = interaction.options.getString("敘述");
+        const configuration = new Configuration({
+            apiKey: process.env.openAIKey,
+        });
+        const openai = new OpenAIApi(configuration);
+        const response = await openai.createImage({
+            prompt: text,
+            n: 1,
+            size: "512x512",
+          });
+        console.log(response)
+        const image_url = response.data.data[0].url;
+        const attachment = new AttachmentBuilder(`${image_url}`);
+        return interaction.editReply({content: `**${text}** - ${interaction.user}`, files: [attachment]})*/
         const { default: midjourney } = await import('midjourney-client');
         const text = interaction.options.getString("敘述");
         const translated = await translate(text, {to: 'en'});

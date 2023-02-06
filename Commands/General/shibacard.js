@@ -1,5 +1,5 @@
 const {SlashCommandBuilder, AttachmentBuilder} = require('discord.js');
-const dogecards = require("../../dogecards.json");
+const dogecards = require("../../Data/dogecards.json");
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("shibacard")

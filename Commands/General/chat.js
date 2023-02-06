@@ -1,6 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const {Configuration, OpenAIApi} = require('openai');
-const {training} = require("../../training.json");
+const {training} = require("../../Data/training.json");
 require('dotenv').config();
 const configuration = new Configuration({
     apiKey: process.env.openAIKey,

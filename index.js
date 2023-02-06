@@ -17,7 +17,7 @@ client.distube = new DisTube(client, {
   emitNewSongOnly: true,
   leaveOnFinish: true,
   leaveOnEmpty: false,
-  emitAddSongWhenCreatingQueue: false,
+  emitAddSongWhenCreatingQueue: true,
   plugins: [new SpotifyPlugin()]
 });
 //client.ytp = new YoutubePoster(client);
