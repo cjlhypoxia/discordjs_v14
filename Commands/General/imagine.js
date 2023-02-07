@@ -30,10 +30,8 @@ module.exports = {
         const { default: midjourney } = await import('midjourney-client');
         const text = interaction.options.getString("敘述");
         const translated = await translate(text, {to: 'en'});
-        console.log(translated);
         await interaction.deferReply();
         const response = await midjourney(translated.text);
-        console.log(response);
         if (response.length < 1) {
             return interaction.editReply({content: `${interaction.user} 很抱歉無法生成圖片`, ephemeral: true});
         } else {
