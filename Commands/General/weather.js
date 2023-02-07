@@ -8,23 +8,48 @@ module.exports = {
         option.setName('城市')
         .setDescription("選擇城市")
         .addChoices(
-            { name: "臺南市", value: "tainan" }
+            { name: "臺南市", value: "tainan" },
+            { name: "臺中市", value: "taichung" },
+            { name: "嘉義市", value: "chiayi" }
         )
         .setRequired(true)
     ),
-    async execute(interaction, client) {
+    async execute(interaction) {
         let option = interaction.options.getString("城市")
         if (option === "tainan") {
-            option = "%E5%AE%89%E5%8D%97%E5%8D%80";
+            //option = "%E5%AE%89%E5%8D%97%E5%8D%80";
+            option = "467410";
+        } else if (option === "taichung") {
+            option = "467490";
+        } else if (option === "chiayi") {
+            option = "467480";
         }
-        if(interaction.member.roles.cache.has(process.env.chatrole)){
-            fetch(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-077?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&locationName=${option}`).then((response) => {
+        //https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option} #auto weather obs
+        //https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option} #weather obs
+        //https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-077?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&locationName=${option} #weather predict
+        if(interaction.member.roles.cache.has(process.env.generalrole)){
+            fetch(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option}`).then((response) => {
                 return response.json();
             }).then((data) => {
                 const test = data;
-                const citytown = test.records.locations[0].location[0].locationName;
-                console.log(citytown);
-                return interaction.reply({ content: `${citytown}`})
+                const city = test.records.location[0]["parameter"][0]["parameterValue"];
+                const obst = test.records.location[0].time.obsTime;
+                const temp =  test.records.location[0]["weatherElement"][3]["elementValue"];
+                const humd = (test.records.location[0]["weatherElement"][4]["elementValue"]) * 100;
+                const weather = test.records.location[0]["weatherElement"][20]["elementValue"];
+                const embed = new EmbedBuilder()
+                    .setTitle(`${city} 目前天氣`)
+                    .setColor('Aqua')
+                    .addFields(
+                        { name: '溫度', value: `${temp} ℃`, inline: true },
+                        { name: '濕度', value: `${humd} %`, inline: true },
+                        { name: '天氣狀態', value: `${weather}`, inline: true },
+                        { name: '觀測時間', value: `${obst}`, inline: false },
+                        //{ name: '\u200B', value: '\u200B' },
+                    )
+                    .setFooter({ text: '資料來源：氣象局' })
+                    .setTimestamp()
+                return interaction.reply({ embeds: [embed] })
             })
         } else {
             interaction.reply({content: `你沒有權限`, ephemeral: true})

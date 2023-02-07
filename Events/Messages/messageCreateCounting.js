@@ -7,12 +7,12 @@ module.exports = {
         if(message.author.bot) return;
         if(isNaN(message.content)) return;
         countingSchema.findOne({GuildID: guildId}, async (err, data) => {
+            if (!data || !data.Channel) return;
             const list = [
                 `太笨了 ${data.Count} \n 新數字：\`1\``,
                 `GG ${data.Count} \n 新數字：\`1\``,
                 `QQ ${data.Count} \n 新數字：\`1\``
             ]
-            if (!data || !data.Channel) return;
             if (message.channel.id === data.Channel) {
                 if (message.author.id == data.LastPerson || message.content < data.Count || message.content > data.Count) {
                     const random = list[Math.floor(Math.random() * list.length)];
