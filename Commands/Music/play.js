@@ -5,13 +5,13 @@ module.exports = {
         .setName("play")
         .setDescription("播放音樂")
         .addStringOption(option =>
-            option.setName("query")
-                .setDescription("name or url")
+            option.setName("歌曲")
+                .setDescription("連結或名稱")
                 .setRequired(true)
         ),
     async execute(interaction) {
         const {options, member, guild, channel} = interaction;
-        const query = options.getString("query");
+        const query = options.getString("歌曲");
         const voiceChannel = member.voice.channel;
         const embed = new EmbedBuilder();
         if (!voiceChannel) {
