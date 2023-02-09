@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+require('dotenv').config();
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("meme")
@@ -26,7 +27,7 @@ module.exports = {
                 });
             }
             async function giphyMeme() {
-                await fetch('https://api.giphy.com/v1/gifs/random?api_key=a3hPbisHHxIPHnjmmeb8aHyeKbHXQxlM&tag=&rating=g').then(async res => {
+                await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.giphyApiKey}&tag=&rating=g`).then(async res => {
                     let meme = await res.json();
                     let title = meme.data.title;
                     let url = meme.data.images.original.url;
