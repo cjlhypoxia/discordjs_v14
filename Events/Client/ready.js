@@ -1,6 +1,5 @@
 const {Client, ActivityType} = require('discord.js');
 const mongoose = require('mongoose');
-const config = require("../../config.json");
 const Levels = require("discord.js-leveling");
 require('dotenv').config();
 const mongodb = process.env.mongodb;
