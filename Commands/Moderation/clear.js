@@ -1,7 +1,7 @@
 const {SlashCommandBuilder, CommandInteraction, EmbedBuilder, PermissionFlagsBits} = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName("刪除訊息")
+    .setName("clear")
     .setDescription("刪除指定數量訊息")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addIntegerOption(option =>
@@ -34,12 +34,12 @@ module.exports = {
             });
             await channel.bulkDelete(filtered).then(messages => {
                 res.setDescription(`成功刪除${target}的${messages.size}則訊息`);
-                interaction.reply({embeds: [res]});
+                interaction.reply({embeds: [res], ephemeral: true});
             });
         } else {
             await channel.bulkDelete(amount, true).then(messages => {
                 res.setDescription(`成功刪除在頻道的${messages.size}則訊息`);
-                interaction.reply({embeds: [res]});
+                interaction.reply({embeds: [res], ephemeral: true});
             });
         }
     }
