@@ -2,7 +2,7 @@ const {SlashCommandBuilder, EmbedBuilder, AttachmentBuilder} = require('discord.
 const voiceSchema = require('../../Models/VoiceState');
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName("vleaderboard")
+    .setName("voicerank")
     .setDescription("查看成員在語音頻道的時間排名"),
     execute(interaction) {
        const guild = interaction.guild.id;
@@ -11,7 +11,7 @@ module.exports = {
                 interaction.reply({content: '還沒有紀錄，趕快加入語音頻道！', ephemeral: true});
             } else {
                 function up(x, y) {
-                    return x.Time - y.Time
+                    return y.Time - x.Time
                 }
                 let i = 1;
                 data.sort(up)

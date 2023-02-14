@@ -3,13 +3,14 @@ const {Client, GatewayIntentBits, Partials, Collection} = require("discord.js");
 const {loadEvents} = require('./Handlers/eventHandler');
 const {loadCommands} = require('./Handlers/commandHandler');
 require('dotenv').config();
+const { DiscordTogether } = require('discord-together');
 const {DisTube} = require('distube');
 const {SpotifyPlugin} = require('@distube/spotify');
 const client = new Client({
   intents: [Object.keys(GatewayIntentBits)],
   partials: [Object.keys(Partials)],
 });
-
+client.discordTogether = new DiscordTogether(client);
 client.distube = new DisTube(client, {
   emitNewSongOnly: true,
   leaveOnFinish: true,

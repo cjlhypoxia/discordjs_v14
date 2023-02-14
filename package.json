@@ -15,6 +15,7 @@
     "ascii-table": "^0.0.9",
     "cpu-stat": "^2.0.1",
     "discord-html-transcripts": "^3.1.3",
+    "discord-together": "^1.3.31",
     "discord-youtube": "^1.1.1",
     "discord.js": "^14.7.1",
     "discord.js-leveling": "^5.4.0",
