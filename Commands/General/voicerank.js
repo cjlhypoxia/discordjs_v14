@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder, AttachmentBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, AttachmentBuilder, ConnectionService} = require('discord.js');
 const voiceSchema = require('../../Models/VoiceState');
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,12 +14,18 @@ module.exports = {
                     return y.Time - x.Time
                 }
                 let i = 1;
+                let max;
+                if (data.length >= 5) {
+                    max = 5
+                } else {
+                    max = data.length;
+                }
                 data.sort(up)
-                const slicedata = data.slice(0, data.length || 5)
+                const slicedata = data.slice(0, max)
                 const embed = new EmbedBuilder()
                     .setTitle(`${interaction.guild}的語音時間排名`)
                     .setDescription(slicedata.map((x) => {
-                            return `**第 ${i++}. ** <@${x.User}> **${(x.Time).toFixed(2)} 秒**`;
+                            return `**第 ${i++} - **<@${x.User}>** ${(x.Time).toFixed(2)} 秒**`;
                             //\n \`紀錄時間 ${x.StartTimeStamp}-${x.EndTimeStamp}\`
                         }).join("\n\n")
                     )
