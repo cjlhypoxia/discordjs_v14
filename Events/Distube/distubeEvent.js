@@ -8,8 +8,8 @@ const button = new ActionRowBuilder().setComponents(
     new ButtonBuilder().setCustomId('nowplaying').setLabel('現正播放').setStyle(ButtonStyle.Secondary).setEmoji('ℹ️'),
 );
 const status = queue =>
-    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
-    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+    `音量： \`${queue.volume}%\` | 音樂過濾： \`${queue.filters.names.join(', ') || '關閉'}\` | 循環： \`${queue.repeatMode ? (queue.repeatMode === 2 ? '全部歌曲' : '此首歌曲') : '關閉'
+    }\` | 自動播放： \`${queue.autoplay ? '開啟' : '關閉'}\``
 client.distube
     /** .on('playSong', (queue, song) =>
         queue.textChannel.send({
@@ -22,7 +22,7 @@ client.distube
         queue.textChannel.send(
             {
                 embeds: [new EmbedBuilder().setColor("Green")
-                    .setDescription(`🎶 | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}\n ${song.likes}`)],
+                    .setDescription(`🎶 | 新增 ${song.name} - \`${song.formattedDuration}\` 到播放列 - By ${song.user}`)],
                 components: [button]
             }
         )
@@ -31,28 +31,28 @@ client.distube
         queue.textChannel.send(
             {
                 embeds: [new EmbedBuilder().setColor("Green")
-                    .setDescription(`🎶 | Added \`${playlist.name}\` playlist (${playlist.songs.length
-                        } songs) to queue\n${status(queue)} ${playlist.user}`)],
+                    .setDescription(`🎶 | 新增 \`${playlist.name}\` 內的 ${playlist.songs.length
+                        } 首歌到播放列\n${status(queue)} - By ${playlist.user}`)],
                 components: [button]
             }
         )
     )
     .on('error', (channel, e) => {
-        if (channel) channel.send(`⛔ | An error encountered: ${e.toString().slice(0, 1974)}`)
+        if (channel) channel.send(`⛔ | 發生了錯誤 : ${e.toString().slice(0, 1974)}`)
         else console.error(e)
     })
     .on('empty', queue => queue.textChannel.send({
         embeds: [new EmbedBuilder().setColor("Red")
-            .setDescription('⛔ |Voice channel is empty! Leaving the channel...')]
+            .setDescription('⛔ | 語音頻道內沒有人，我先閃了......')]
     }))
     .on('searchNoResult', (message, query) =>
         message.channel.send(
             {
                 embeds: [new EmbedBuilder().setColor("Red")
-                    .setDescription('`⛔ | No result found for \`${query}\`!`')]
+                    .setDescription(`⛔ | 找不到關於 \`${query}\` 的結果 !`)]
             })
     )
     .on('finish', queue => queue.textChannel.send({
         embeds: [new EmbedBuilder().setColor("Green")
-            .setDescription('🏁 | Queue finished!')]
+            .setDescription('🏁 | 歌曲播放完畢！')]
     }))

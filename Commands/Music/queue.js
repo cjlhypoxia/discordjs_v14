@@ -3,7 +3,7 @@ const client = require("../../index");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("queue")
-        .setDescription("播放清單"),
+        .setDescription("查看稍後播放的前十首歌曲"),
     async execute(interaction) {
         const {options, member, guild, channel} = interaction;
         const voiceChannel = member.voice.channel;
@@ -23,9 +23,18 @@ module.exports = {
                 embed.setColor("Red").setDescription("沒有播放清單");
                 return interaction.reply({ embeds: [embed], ephemeral: true});
             }
-            embed.setColor("Blue").setDescription(`${queue.songs.map(
-              (song, id) => `\n**${id + 1}**.**${song.name}** -\`${song.formattedDuration}\``
-            )}`);
+            let max;
+            console.log(queue.songs.length);
+            if (queue.songs.length >= 10) {
+                max = 10
+            } else {
+                max = queue.songs.length;
+            }
+            const slicequeue = queue.songs.slice(0, max)
+            console.log(slicequeue);
+            embed.setColor("Blue").setDescription(`${slicequeue.map(
+              (song, id) => (`\n**${id + 1}** . **${song.name}** - \`${song.formattedDuration}\`\nLink: ${song.url}`)
+            )}`).setTimestamp().setFooter({text: `等 ${queue.songs.length - 10} 首歌`})
             return interaction.reply({ embeds: [embed], ephemeral: true});
         } catch (err) {
             console.log(err);

@@ -3,7 +3,7 @@ const voiceSchema = require('../../Models/VoiceState');
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("voicerank")
-    .setDescription("查看成員在語音頻道的時間排名"),
+    .setDescription("查看成員在語音頻道時間的前五名"),
     execute(interaction) {
        const guild = interaction.guild.id;
        voiceSchema.find({Guild: guild}, async (err, data) => {
@@ -23,7 +23,7 @@ module.exports = {
                 data.sort(up)
                 const slicedata = data.slice(0, max)
                 const embed = new EmbedBuilder()
-                    .setTitle(`${interaction.guild}的語音時間排名`)
+                    .setTitle(`${interaction.guild}的語音時間前五名`)
                     .setDescription(slicedata.map((x) => {
                             return `**第 ${i++} - **<@${x.User}>** ${(x.Time).toFixed(2)} 秒**`;
                             //\n \`紀錄時間 ${x.StartTimeStamp}-${x.EndTimeStamp}\`
