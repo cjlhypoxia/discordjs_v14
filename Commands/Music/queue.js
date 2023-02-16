@@ -20,11 +20,10 @@ module.exports = {
         try {
             const queue = await client.distube.getQueue(voiceChannel);
             if(!queue) {
-                embed.setColor("Red").setDescription("沒有播放清單");
+                embed.setColor("Red").setDescription("❌ 沒有播放清單");
                 return interaction.reply({ embeds: [embed], ephemeral: true});
             }
             let max;
-            console.log(queue.songs.length);
             if (queue.songs.length >= 10) {
                 max = 10
             } else {
@@ -38,7 +37,7 @@ module.exports = {
             return interaction.reply({ embeds: [embed], ephemeral: true});
         } catch (err) {
             console.log(err);
-            embed.setColor("Blue").setDescription("⏭️發生了錯誤");
+            embed.setColor("Blue").setDescription("❌ 發生了錯誤");
             return interaction.reply({ embeds: [embed], ephemeral: true});
         }
     }

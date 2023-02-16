@@ -22,7 +22,7 @@ client.distube
         queue.textChannel.send(
             {
                 embeds: [new EmbedBuilder().setColor("Green")
-                    .setDescription(`🎶 | 新增 ${song.name} - \`${song.formattedDuration}\` 到播放列 - By ${song.user}`)],
+                    .setDescription(`🎶 | 新增 ${song.name} - \`${song.formattedDuration}\` 到播放列\nBy ${song.user}`)],
                 components: [button]
             }
         )
@@ -32,7 +32,7 @@ client.distube
             {
                 embeds: [new EmbedBuilder().setColor("Green")
                     .setDescription(`🎶 | 新增 \`${playlist.name}\` 內的 ${playlist.songs.length
-                        } 首歌到播放列\n${status(queue)} - By ${playlist.user}`)],
+                        } 首歌到播放列\n${status(queue)}\nBy ${playlist.user}`)],
                 components: [button]
             }
         )
