@@ -1,7 +1,6 @@
 const client = require('../../index');
 const voiceSchema = require('../../Models/VoiceState');
 //Bug 假如機器人過久沒上線但成員已經在語音頻道，則在機器人再次上線後，退出語音頻道將會得到更多時間。
-//Bug Fix 開關靜音等活動造成時間更新，已修正只看成員連接或離開。
 client.on('voiceStateUpdate', (oldState, newState) => {
     if(newState.member.user.bot === true) return;
     const guild = newState.guild.id;
