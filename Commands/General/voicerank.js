@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder, AttachmentBuilder, ConnectionService} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const voiceSchema = require('../../Models/VoiceState');
 module.exports = {
     data: new SlashCommandBuilder()
@@ -30,6 +30,7 @@ module.exports = {
                         }).join("\n\n")
                     )
                     .setColor('Random')
+                    .setFooter({text: `進出語音頻道才會更新時間`})
                     .setTimestamp();
                 return interaction.reply({embeds: [embed]})
             }

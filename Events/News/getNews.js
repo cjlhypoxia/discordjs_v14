@@ -1,9 +1,7 @@
 const {EmbedBuilder} = require('discord.js');
 const Parser = require('rss-parser');
 const fs = require('fs');
-const client = require('../../index');
 const {guildid, newschannelid} = require('../../config.json');
-const {link} = require('../News/newsdata.json');
 const parser = new Parser();
 module.exports = {
     name: "ready",
