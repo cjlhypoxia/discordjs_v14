@@ -27,7 +27,6 @@ module.exports = {
         }
         try {
             client.distube.play(voiceChannel, query, { textChannel: channel, member: member});
-            
             interaction.reply({content: `🎵 收到要求 `});
         } catch (err) {
             console.log(err);

@@ -1,7 +1,7 @@
 module.exports = {
     name: "messageCreate",
     async execute(message) {
-        if (message.interaction === null) {
+        if (message.author.bot === false) {
             message.react('😡')
         } else return;
     }

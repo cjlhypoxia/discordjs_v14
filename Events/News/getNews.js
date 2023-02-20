@@ -19,7 +19,7 @@ module.exports = {
                 const newstitle = data.items[0].title;
                 const embed = new EmbedBuilder().setTitle(newstitle).setURL(url).setColor('Random').setTimestamp();
                 await channel.send({embeds: [embed]})
-            } else return console.log('No News');
+            } else return; //console.log('No News');
         };
         setInterval(client.checkNews, 5 * 1000);
     }
