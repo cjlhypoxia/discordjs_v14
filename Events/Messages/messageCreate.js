@@ -4,9 +4,11 @@ module.exports = {
     name: "messageCreate",
     async execute(message) {
         if (!message.guild || message.author.bot) return;
+        if (message.content.includes('晚安')) {
+            message.reply('晚安');
+            message.react('💤');
+        }
         if (message.content.length < 3) return;
-        //const long = message.content.length;
-        //message.channel.send(`${long}`)
         const randomAmountOfXp = Math.floor(Math.random() * 29) + 1;
         const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
         if (hasLeveledUp) {
