@@ -1,5 +1,8 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const voiceSchema = require('../../Models/VoiceState');
+const dayjs = require('dayjs');
+const duration = require('dayjs/plugin/duration')
+dayjs.extend(duration);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("voicerank")
@@ -25,7 +28,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle(`${interaction.guild}的語音時間前五名`)
                     .setDescription(slicedata.map((x) => {
-                            return `**第 ${i++} - **<@${x.User}>** ${(x.Time).toFixed(2)} 秒**`;
+                            return `**第 ${i++} - **<@${x.User}>** ${dayjs.duration(x.Time, "seconds").format('D日 H時 m分 ss秒')}**`;
                             //\n \`紀錄時間 ${x.StartTimeStamp}-${x.EndTimeStamp}\`
                         }).join("\n\n")
                     )
