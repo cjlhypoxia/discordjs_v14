@@ -8,17 +8,31 @@ module.exports = {
         option.setName('城市')
         .setDescription("選擇城市")
         .addChoices(
-            { name: "臺南市", value: "tainan" },
-            { name: "苗栗市", value: "miaoli" },
-            { name: "臺中市", value: "taichung" },
-            { name: "嘉義市", value: "chiayi" }
+            { name: "基隆市", value: "466940" },
+            { name: "臺北市", value: "466920" },
+            { name: "新北市", value: "466881" },
+            { name: "桃園市（新屋）", value: "467050" },
+            { name: "新竹縣", value: "467571" },
+            { name: "臺中市", value: "467490" },
+            { name: "彰化縣", value: "467270" },
+            { name: "南投縣", value: "467650" },
+            { name: "嘉義市", value: "467480" },
+            { name: "臺南市", value: "467410" },
+            { name: "高雄市", value: "467441" },
+            { name: "屏東縣", value: "467590" },
+            { name: "臺東縣", value: "467660" },
+            { name: "花蓮縣", value: "466990" },
+            { name: "宜蘭縣", value: "467080" },
+            { name: "澎湖縣", value: "467350" },
+            { name: "金門縣", value: "467110" },
+            { name: "連江縣", value: "467990" },
         )
         .setRequired(true)
     ),
     async execute(interaction) {
         await interaction.deferReply();
         let option = interaction.options.getString("城市")
-        var tf;
+        /**var tf;
         if (option === "tainan") {
             option = "467410";
             tf = 1;
@@ -36,13 +50,12 @@ module.exports = {
                 option = "C0C480";
             } 
             tf = 2;
-        }
+        }*/
         //https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option} #auto weather obs
         //https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option} #weather obs
         //https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-077?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&locationName=${option} #weather predict
         if (interaction.member.roles.cache.has(process.env.generalrole)) {
-            if (tf === 1) {
-                fetch(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option}`).then((response) => {
+            fetch(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option}`).then((response) => {
                     return response.json();
                 }).then((data) => {
                     const test = data;
@@ -85,7 +98,7 @@ module.exports = {
                         .setTimestamp()
                     return interaction.editReply({ embeds: [embed] })
                 })
-            } else if ( tf === 2) {
+            /**else if ( tf === 2) {
                 fetch(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=${process.env.openWEATHERKey}&limit=1&format=JSON&stationId=${option}`).then((response) => {
                     return response.json();
                 }).then((data) => {
@@ -115,7 +128,7 @@ module.exports = {
                         .setTimestamp()
                     return interaction.editReply({ embeds: [embed] })
                 })
-            }
+            }*/
         } else {
             interaction.editReply({content: `你沒有權限`, ephemeral: true})
         }
