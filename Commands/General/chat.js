@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration);
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("chat")
-        .setDescription("chat gpt")
+        .setDescription("向 ChatGPT 說說話")
         .addStringOption(option =>
             option.setName("問題")
                 .setDescription("輸入問題")

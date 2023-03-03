@@ -5,7 +5,7 @@ const translate = require('@iamtraction/google-translate');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("imagine")
-        .setDescription("使用AI生成圖片")
+        .setDescription("使用AI生成圖片 (stable-diffusion-v1-5)")
         .addStringOption(option => 
             option.setName("敘述")
             .setDescription("輸入想像的圖片樣貌")
