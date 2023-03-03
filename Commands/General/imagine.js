@@ -22,9 +22,9 @@ module.exports = {
                     return;
                 }
                 try {
-                    if ( result.results.length < 3) {
+                    if ( result.results.length < 1) {
                         await interaction.editReply(`很抱歉無法生成圖片，您輸入的敘述可能不適當。（${oprompt}）`);
-                        return
+                        return;
                     } else {
                         for (let i = 0; i < result.results.length; i++) {
                             let data = result.results[i].split(",")[1]
@@ -33,14 +33,37 @@ module.exports = {
                             fs.writeFileSync(filename, buffer)
                         }
                     }
-                    const attachment = [
-                        new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                        new AttachmentBuilder(`./images/${oprompt}_2.png`),
-                        new AttachmentBuilder(`./images/${oprompt}_3.png`),
-                        new AttachmentBuilder(`./images/${oprompt}_4.png`)
-                    ];
-                    const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png,${oprompt}_4.png`).setTimestamp();    
-                    await interaction.editReply({embeds: [embed], files: [attachment][0]});
+                    if (result.results.length === 1) {
+                        const attachment = [
+                            new AttachmentBuilder(`./images/${oprompt}_1.png`)
+                        ];
+                        const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png`).setTimestamp();    
+                        return interaction.editReply({embeds: [embed], files: [attachment][0]});
+                    } else if (result.results.length === 2) {
+                        const attachment = [
+                            new AttachmentBuilder(`./images/${oprompt}_1.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_2.png`)
+                        ];
+                        const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png`).setTimestamp();    
+                        return interaction.editReply({embeds: [embed], files: [attachment][0]});
+                    } else if (result.results.length === 3) {
+                        const attachment = [
+                            new AttachmentBuilder(`./images/${oprompt}_1.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_2.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_3.png`)
+                        ];
+                        const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png`).setTimestamp();    
+                        return interaction.editReply({embeds: [embed], files: [attachment][0]});
+                    } else {
+                        const attachment = [
+                            new AttachmentBuilder(`./images/${oprompt}_1.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_2.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_3.png`),
+                            new AttachmentBuilder(`./images/${oprompt}_4.png`)
+                        ];
+                        const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png,${oprompt}_4.png`).setTimestamp();    
+                        return interaction.editReply({embeds: [embed], files: [attachment][0]});
+                    }
                 } catch (e) {
                     console.log(e)
                 }
