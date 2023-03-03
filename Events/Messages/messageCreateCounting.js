@@ -31,7 +31,7 @@ module.exports = {
                     })
                     return message.react("❌")
                 }
-                if (message.content == 3 && data.Count == 3) {
+                if (message.content == 10000 && data.Count == 10000) {
                     message.react("㊗️")
                     message.channel.send({
                         embeds: [

@@ -30,6 +30,7 @@
     "mongoose": "^6.8.4",
     "node-fetch": "^3.3.0",
     "openai": "^3.1.0",
+    "stable-diffusion-cjs": "^1.0.4",
     "yt-search": "^2.10.4",
     "ytdl-core": "^4.11.2"
   }
