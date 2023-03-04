@@ -5,6 +5,7 @@ module.exports = {
     async execute(message) {
         const guildId = message.guild.id;
         if(message.author.bot) return;
+        if(message.content.length === 0) return;
         if(isNaN(message.content)) return;
         countingSchema.findOne({GuildID: guildId}, async (err, data) => {
             if (!data || !data.Channel) return;
