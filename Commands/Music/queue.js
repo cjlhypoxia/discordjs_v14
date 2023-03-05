@@ -8,7 +8,6 @@ module.exports = {
         const {options, member, guild, channel} = interaction;
         const voiceChannel = member.voice.channel;
         const embed = new EmbedBuilder();
-        
         if (!voiceChannel) {
             embed.setColor("Red").setDescription("你必須在語音頻道內");
             return interaction.reply({ embeds: [embed], ephemeral: true});
@@ -30,7 +29,6 @@ module.exports = {
                 max = queue.songs.length;
             }
             const slicequeue = queue.songs.slice(0, max)
-            console.log(slicequeue);
             embed.setColor("Blue").setDescription(`${slicequeue.map(
               (song, id) => (`\n**${id + 1}** . **${song.name}** - \`${song.formattedDuration}\`\nLink: ${song.url}`)
             )}`).setTimestamp().setFooter({text: `等 ${queue.songs.length - 10} 首歌`})
