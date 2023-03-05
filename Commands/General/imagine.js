@@ -25,6 +25,14 @@ module.exports = {
             let oprompt = interaction.options.getString('敘述');
             const version = interaction.options.getString('版本');
             let prompt = await translate(oprompt, {to: 'en'});
+            function randStr(length) {
+                var result = [];
+                var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                for (var i = 0; i < length; i++) {
+                    result.push(chars.charAt(Math.floor(Math.random() * chars.length)));
+                }
+                return result.join('');
+            }
             function im1() {
                 AI.generate1(prompt.text, async (result) => {
                     if (result.error) {
@@ -32,6 +40,7 @@ module.exports = {
                         return;
                     }
                     try {
+                        const photoname = randStr(8);
                         if ( result.results.length < 1) {
                             await interaction.editReply(`很抱歉無法生成圖片，您輸入的敘述可能不適當。（${oprompt}）`);
                             return;
@@ -39,39 +48,39 @@ module.exports = {
                             for (let i = 0; i < result.results.length; i++) {
                                 let data = result.results[i].split(",")[1]
                                 const buffer = Buffer.from(data, "base64")
-                                const filename = `./images/${oprompt}_${i + 1}.png`
+                                const filename = `./images/${photoname}_${i + 1}.png`
                                 fs.writeFileSync(filename, buffer)
                             }
                         }
                         if (result.results.length === 1) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else if (result.results.length === 2) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else if (result.results.length === 3) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_3.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`),
+                                new AttachmentBuilder(`./images/${photoname}_3.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png,${photoname}_3.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_3.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_4.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`),
+                                new AttachmentBuilder(`./images/${photoname}_3.png`),
+                                new AttachmentBuilder(`./images/${photoname}_4.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user} - 版本 1.5`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png,${oprompt}_4.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user} - 版本 1.5`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png,${photoname}_3.png,${photoname}_4.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         }
                     } catch (e) {
@@ -86,6 +95,7 @@ module.exports = {
                         return;
                     }
                     try {
+                        const photoname = randStr(8);
                         if ( result.results.length < 1) {
                             await interaction.editReply(`很抱歉無法生成圖片，您輸入的敘述可能不適當，或因遠端過多人使用。（${oprompt}）`);
                             return;
@@ -93,40 +103,41 @@ module.exports = {
                             for (let i = 0; i < result.results.length; i++) {
                                 let data = result.results[i].split(",")[1]
                                 const buffer = Buffer.from(data, "base64")
-                                const filename = `./images/${oprompt}_${i + 1}.png`
+                                const filename = `./images/${photoname}_${i + 1}.png`
                                 fs.writeFileSync(filename, buffer)
                             }
                         }
                         if (result.results.length === 1) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else if (result.results.length === 2) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else if (result.results.length === 3) {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_3.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`),
+                                new AttachmentBuilder(`./images/${photoname}_3.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user}`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png,${photoname}_3.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
                         } else {
                             const attachment = [
-                                new AttachmentBuilder(`./images/${oprompt}_1.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_2.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_3.png`),
-                                new AttachmentBuilder(`./images/${oprompt}_4.png`)
+                                new AttachmentBuilder(`./images/${photoname}_1.png`),
+                                new AttachmentBuilder(`./images/${photoname}_2.png`),
+                                new AttachmentBuilder(`./images/${photoname}_3.png`),
+                                new AttachmentBuilder(`./images/${photoname}_4.png`)
                             ];
-                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user} - 版本 2.1`).setColor('Random').setImage(`attachment://${oprompt}_1.png,${oprompt}_2.png,${oprompt}_3.png,${oprompt}_4.png`).setTimestamp();    
+                            const embed = new EmbedBuilder().setDescription(`敘述：${oprompt} - ${interaction.user} - 版本 2.1`).setColor('Random').setImage(`attachment://${photoname}_1.png,${photoname}_2.png,${photoname}_3.png,${photoname}_4.png`).setTimestamp();    
                             return interaction.editReply({embeds: [embed], files: [attachment][0]});
+                            
                         }
                     } catch (e) {
                         console.log(e)

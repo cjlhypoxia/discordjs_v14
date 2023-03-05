@@ -13,6 +13,7 @@ module.exports = {
             const data = await parser.parseURL(`https://www.cdc.gov.tw/RSS/RssXml/Hh094B49-DRwe2RR4eFfrQ?type=1`).catch(console.error);
             const rawdata = fs.readFileSync(`${__dirname}/newsdata.json`);
             const jsondata = JSON.parse(rawdata);
+            //console.log(jsondata);
             if (jsondata.link != data.items[0].link) {
                 fs.writeFileSync(`./Events/News/newsdata.json`,JSON.stringify({link: data.items[0].link}));
                 const url = data.items[0].link;
