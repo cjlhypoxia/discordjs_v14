@@ -301,7 +301,7 @@ function logsHandler(client) {
     })
 
     // Discriminator Updated
-    client.on("userDiscriminatorUpdate", (user, oldDiscriminator, newDiscriminator) => {
+    /**client.on("userDiscriminatorUpdate", (user, oldDiscriminator, newDiscriminator) => {
 
         const embed = new EmbedBuilder()
             .setTitle('Discriminator Updated')
@@ -310,7 +310,7 @@ function logsHandler(client) {
 
         return send_log(user.guild.id, embed);
 
-    })
+    })*/
 
     // Joined VC
     client.on("voiceChannelJoin", (member, channel) => {
