@@ -6,10 +6,11 @@ dayjs.extend(duration);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("voicerank")
-    .setDescription("查看成員在語音頻道時間的前五名"),
+    .setDescription("查看成員在語音頻道時間的前五名")
+    .setDMPermission(false),
     execute(interaction) {
-       const guild = interaction.guild.id;
-       voiceSchema.find({Guild: guild}, async (err, data) => {
+        const guild = interaction.guild.id;
+        voiceSchema.find({Guild: guild}, async (err, data) => {
             if(data.length === 0) {
                 interaction.reply({content: '還沒有紀錄，趕快加入語音頻道！', ephemeral: true});
             } else {
