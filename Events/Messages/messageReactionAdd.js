@@ -7,40 +7,42 @@ module.exports = {
         if (userbot) return;
         const reaction = messageReaction.emoji;
         const message = messageReaction.message;
+        if (message.content === '') return;
+        //console.log(reaction.toString())
         const languages = {
             "auto": "Automatic",
             "af": "Afrikaans",
-            "sq": "Albanian",
-            "am": "Amharic",
-            "ar": "Arabic",
-            "hy": "Armenian",
-            "az": "Azerbaijani",
-            "eu": "Basque",
-            "be": "Belarusian",
-            "bn": "Bengali",
-            "bs": "Bosnian",
-            "bg": "Bulgarian",
-            "ca": "Catalan",
+            "sq": "Albanian", //AL
+            "am": "Amharic", //ET
+            "ar": "Arabic", //DZ BH AE DJ EG EH ER
+            "hy": "Armenian", //AM
+            "az": "Azerbaijani", //AZ
+            "eu": "Basque", //ES
+            "be": "Belarusian", //BY
+            "bn": "Bengali", //BD
+            "bs": "Bosnian", //BA
+            "bg": "Bulgarian", //BG
+            "ca": "Catalan", //AD ES
             "ceb": "Cebuano",
             "ny": "Chichewa",
-            "zh-cn": "Chinese Simplified",
-            "zh-tw": "Chinese Traditional",
+            "🇨🇳": "Chinese Simplified", //zh-cn //CN
+            "🇹🇼": "Chinese Traditional", //zh-tw
             "co": "Corsican",
-            "hr": "Croatian",
-            "cs": "Czech",
-            "da": "Danish",
-            "nl": "Dutch",
-            "🇹🇼": "English",
+            "hr": "Croatian", //BA
+            "cs": "Czech",  //CZ
+            "da": "Danish", //DK FO
+            "nl": "Dutch", //BQ CW AW BE
+            "🇺🇸": "English", //en //AG AI AQ AR AS AU BB BL BS BW BZ CA CC CK CM CW CX DM FJ FK FM GB  BM BW IO VG BI ER
             "eo": "Esperanto",
-            "et": "Estonian",
+            "et": "Estonian", //EE
             "tl": "Filipino",
-            "fi": "Finnish",
-            "fr": "French",
+            "fi": "Finnish", //FI
+            "fr": "French", // FR BE BF BI BJ BL CA AQ CD CF CG CH CI CM DJ EH GA  BF 
             "fy": "Frisian",
-            "gl": "Galician",
+            "gl": "Galician", //ES
             "ka": "Georgian",
-            "de": "German",
-            "el": "Greek",
+            "de": "German", //AT BE CH DE
+            "el": "Greek", //CY
             "gu": "Gujarati",
             "ht": "Haitian Creole",
             "ha": "Hausa",
@@ -52,14 +54,14 @@ module.exports = {
             "is": "Icelandic",
             "ig": "Igbo",
             "id": "Indonesian",
-            "ga": "Irish",
-            "it": "Italian",
-            "ja": "Japanese",
+            "ga": "Irish", //GB
+            "it": "Italian", //CH
+            "🇯🇵": "Japanese", //ja //
             "jw": "Javanese",
             "kn": "Kannada",
             "kk": "Kazakh",
             "km": "Khmer",
-            "ko": "Korean",
+            "🇰🇷": "Korean", //ko
             "ku": "Kurdish (Kurmanji)",
             "ky": "Kyrgyz",
             "lo": "Lao",
@@ -69,7 +71,7 @@ module.exports = {
             "lb": "Luxembourgish",
             "mk": "Macedonian",
             "mg": "Malagasy",
-            "ms": "Malay",
+            "ms": "Malay", //BN
             "ml": "Malayalam",
             "mt": "Maltese",
             "mi": "Maori",
@@ -77,38 +79,38 @@ module.exports = {
             "mn": "Mongolian",
             "my": "Myanmar (Burmese)",
             "ne": "Nepali",
-            "no": "Norwegian",
-            "ps": "Pashto",
-            "fa": "Persian",
+            "no": "Norwegian", //BV
+            "ps": "Pashto", //🇦🇫
+            "fa": "Persian", //🇦🇫
             "pl": "Polish",
-            "pt": "Portuguese",
+            "pt": "Portuguese", //AO BR CV
             "pa": "Punjabi",
             "ro": "Romanian",
-            "ru": "Russian",
+            "ru": "Russian", //AQ BY
             "sm": "Samoan",
-            "gd": "Scots Gaelic",
-            "sr": "Serbian",
+            "gd": "Scots Gaelic", //GB
+            "sr": "Serbian", //BA
             "st": "Sesotho",
             "sn": "Shona",
             "sd": "Sindhi",
             "si": "Sinhala",
             "sk": "Slovak",
             "sl": "Slovenian",
-            "so": "Somali",
-            "es": "Spanish",
+            "so": "Somali", //DJ
+            "es": "Spanish", //BO AQ AS CL CO CR CU DO EC EH ES
             "su": "Sundanese",
             "sw": "Swahili",
-            "sv": "Swedish",
+            "sv": "Swedish", //🇦🇽 FI
             "tg": "Tajik",
             "ta": "Tamil",
             "te": "Telugu",
             "th": "Thai",
-            "tr": "Turkish",
+            "tr": "Turkish", //CY
             "uk": "Ukrainian",
             "ur": "Urdu",
-            "uz": "Uzbek",
+            "uz": "Uzbek", //AF
             "vi": "Vietnamese",
-            "cy": "Welsh",
+            "cy": "Welsh", //GB
             "xh": "Xhosa",
             "yi": "Yiddish",
             "yo": "Yoruba",
